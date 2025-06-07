@@ -17,10 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bodakesatish.composecomponents.buttons.ButtonColorsContent
-import com.bodakesatish.composecomponents.buttons.ButtonCustomShape
-import com.bodakesatish.composecomponents.buttons.ButtonPaddingContent
-import com.bodakesatish.composecomponents.text.TextDefault
+import com.bodakesatish.composecomponents.textfield.KeyboardCustomizationDemo
+import com.bodakesatish.composecomponents.textfield.TextFieldStatesDemo
 import com.bodakesatish.composecomponents.ui.theme.ComposeComponentsTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,7 +52,7 @@ fun MainContent() {
             verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between children.
         ) {
             val content = LocalContext.current
-            TextDefault()
+            KeyboardCustomizationDemo()
         }
     }
 }

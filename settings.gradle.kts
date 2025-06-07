@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Compose Components"
+rootProject.name = "ComposeElements"
 include(":app")
  

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bodakesatish.composecomponents.selection.CheckboxDemo
 import com.bodakesatish.composecomponents.selection.DropdownMenuDemo
 import com.bodakesatish.composecomponents.ui.theme.ComposeComponentsTheme
 
@@ -51,7 +52,7 @@ fun MainContent() {
             verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between children.
         ) {
             val context = LocalContext.current
-            DropdownMenuDemo(context)
+            CheckboxDemo(context)
         }
     }
 }

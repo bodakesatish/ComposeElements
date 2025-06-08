@@ -125,3 +125,53 @@ fun CheckboxDemo(context: android.content.Context) {
 ![CheckBox Demo](screenshots/checkbox_demo.png)
 
 -----
+
+3. **RadioButtonDemo:** Text:**
+   * `RadioButton` (RadioButton Demo)`
+
+```kotlin
+@Composable
+fun RadioButtonDemo(context: android.content.Context) {
+   val radioOptions = listOf("Option A", "Option B", "Option C")
+   // var (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+   var selectedOption by remember { mutableStateOf(radioOptions[0]) }
+   Text("Radio Buttons:", style = MaterialTheme.typography.titleMedium)
+   Column {
+      radioOptions.forEach { text ->
+         Row(
+            Modifier
+               //.fillMaxWidth()
+               .selectable(
+                  selected = (text == selectedOption),
+                  onClick = {
+                     selectedOption = text // Update state directly here
+                     Toast
+                        .makeText(context, "$text selected", Toast.LENGTH_SHORT)
+                        .show()
+                  },
+                  role = Role.RadioButton // Important for accessibility
+               )
+               .padding(vertical = 8.dp), // Increased padding for better tap target
+            verticalAlignment = Alignment.CenterVertically
+         ) {
+            RadioButton(
+               selected = (text == selectedOption),
+//                    onClick = {
+//                        onOptionSelected(text)
+//                        Toast.makeText(context, "$text selected", Toast.LENGTH_SHORT).show()
+//                    }
+               onClick = null // Handled by the Row's selectable modifier
+            )
+            Text(
+               text = text,
+               modifier = Modifier.padding(start = 8.dp)// Padding between radio and text
+            )
+         }
+      }
+   }
+}
+```
+
+![RadioButton Demo](screenshots/radiobutton_demo.png)
+
+-----

@@ -3,9 +3,11 @@ package com.bodakesatish.composecomponents.selection
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
@@ -15,6 +17,7 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.ripple
@@ -204,4 +207,45 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
         indication = null, // This is the key: setting indication to null removes the ripple
         onClick = { onClick() }
     )
+}
+
+@Composable
+fun RadioButtonDemo(context: android.content.Context) {
+    val radioOptions = listOf("Option A", "Option B", "Option C")
+   // var (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+    var selectedOption by remember { mutableStateOf(radioOptions[0]) }
+    Text("Radio Buttons:", style = MaterialTheme.typography.titleMedium)
+    Column {
+        radioOptions.forEach { text ->
+            Row(
+                Modifier
+                    //.fillMaxWidth()
+                    .selectable(
+                        selected = (text == selectedOption),
+                        onClick = {
+                            selectedOption = text // Update state directly here
+                            Toast
+                                .makeText(context, "$text selected", Toast.LENGTH_SHORT)
+                                .show()
+                        },
+                        role = Role.RadioButton // Important for accessibility
+                    )
+                    .padding(vertical = 8.dp), // Increased padding for better tap target
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = (text == selectedOption),
+//                    onClick = {
+//                        onOptionSelected(text)
+//                        Toast.makeText(context, "$text selected", Toast.LENGTH_SHORT).show()
+//                    }
+                    onClick = null // Handled by the Row's selectable modifier
+                )
+                Text(
+                    text = text,
+                    modifier = Modifier.padding(start = 8.dp)// Padding between radio and text
+                )
+            }
+        }
+    }
 }

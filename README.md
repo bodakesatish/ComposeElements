@@ -72,3 +72,32 @@ fun ImagePlaceholder(modifier: Modifier = Modifier) {
 ![ElevatedCard Demo](screenshots/elevated_card_demo.png)
 
 -----
+
+2. **HorizontalDivider:**
+   * `HorizontalDivider` (HorizontalDivider)`
+
+```kotlin
+@Composable
+fun HorizontalDividerDemo() {
+    Text("HorizontalDivider", style = MaterialTheme.typography.titleMedium)
+    Spacer(modifier = Modifier.height(8.dp))
+    Column {
+        Text("Content above divider")
+        Spacer(modifier = Modifier.height(8.dp))
+        // `HorizontalDivider` is used to separate content horizontally.
+        // It's the standard Material 3 divider for this purpose.
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth(), // Typically spans the full width
+            thickness = 1.dp, // Default thickness
+            color = MaterialTheme.colorScheme.outlineVariant // Default color
+        )
+        // `HorizontalDivider(thickness = Dp.Hairline)` can be used for a very thin line.
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Content below divider")
+    }
+}
+```
+
+![HorizontalDivider Demo](screenshots/horizontal_divider_demo.png)
+
+-----

@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -96,5 +97,25 @@ fun ImagePlaceholder(modifier: Modifier = Modifier) {
              contentScale = ContentScale.FillHeight,
              modifier = Modifier.fillMaxSize()
          )
+    }
+}
+
+@Composable
+fun HorizontalDividerDemo() {
+    Text("HorizontalDivider", style = MaterialTheme.typography.titleMedium)
+    Spacer(modifier = Modifier.height(8.dp))
+    Column {
+        Text("Content above divider")
+        Spacer(modifier = Modifier.height(8.dp))
+        // `HorizontalDivider` is used to separate content horizontally.
+        // It's the standard Material 3 divider for this purpose.
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth(), // Typically spans the full width
+            thickness = 1.dp, // Default thickness
+            color = MaterialTheme.colorScheme.outlineVariant // Default color
+        )
+        // `HorizontalDivider(thickness = Dp.Hairline)` can be used for a very thin line.
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Content below divider")
     }
 }

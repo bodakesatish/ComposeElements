@@ -1,6 +1,6 @@
 ## Components Demonstrated:
 
-1. **ExposedDropdownMenuDemo:** Text:**
+1. **ExposedDropdownMenuDemo:**
     * `ExposedDropdownMenu` (ExposedDropdownMenu Text)`
 
 ```kotlin
@@ -48,7 +48,7 @@ fun DropdownMenuDemo(context: android.content.Context) {
 
 -----
 
-2. **CheckBoxDemo:** Text:**
+2. **CheckBoxDemo:**
    * `Checkbox` (Checkbox Text)`
 
 ```kotlin
@@ -126,7 +126,7 @@ fun CheckboxDemo(context: android.content.Context) {
 
 -----
 
-3. **RadioButtonDemo:** Text:**
+3. **RadioButtonDemo:**
    * `RadioButton` (RadioButton Demo)`
 
 ```kotlin
@@ -173,5 +173,95 @@ fun RadioButtonDemo(context: android.content.Context) {
 ```
 
 ![RadioButton Demo](screenshots/radiobutton_demo.png)
+
+-----
+
+4. **Switch Demo:**
+   * `Switch` (Switch Demo)`
+
+```kotlin
+@Composable
+fun SwitchDemo(context: android.content.Context) {
+   var simpleSwitchChecked by remember { mutableStateOf(false) }
+   var disabledSwitchChecked by remember { mutableStateOf(true) } // Example initial state for disabled
+   var isSwitchEnabled by remember { mutableStateOf(true) } // To control enabled state of the first switch
+
+   Text("Switches:", style = MaterialTheme.typography.titleMedium)
+
+   // Example 1: Standard Switch (that can be programmatically disabled/enabled)
+   Column(modifier = Modifier.padding(bottom = 16.dp)) {
+      Row(
+         verticalAlignment = Alignment.CenterVertically,
+         modifier = Modifier
+            // .fillMaxWidth() // Optional: uncomment if you want the row to span full width
+            .toggleable(
+               value = simpleSwitchChecked,
+               onValueChange = {
+                  if (isSwitchEnabled) { // Only change if enabled
+                     simpleSwitchChecked = it
+                     Toast.makeText(context, "Switch: $it", Toast.LENGTH_SHORT).show()
+                  } else {
+                     Toast.makeText(context, "Switch is disabled", Toast.LENGTH_SHORT).show()
+                  }
+               },
+               role = Role.Switch, // Important for accessibility
+               enabled = isSwitchEnabled // Pass the enabled state to toggleable
+            )
+            .padding(vertical = 8.dp, horizontal = 4.dp) // Padding for better tap target
+      ) {
+         // The Text should ideally come before the Switch for typical LTR layout ordering
+         // if the whole row is clickable and associated with the Switch's state.
+         Text(
+            text = "Interactive Switch",
+            modifier = Modifier.padding(end = 16.dp) // Padding between text and switch
+         )
+         Switch(
+            checked = simpleSwitchChecked,
+            onCheckedChange = null, // Handled by Row's toggleable
+            enabled = isSwitchEnabled, // Control enabled state here
+            // Example of thumb icon (optional)
+            thumbContent = {
+               if (simpleSwitchChecked) Icon(Icons.Filled.Check, "On") else Icon(
+                  Icons.Filled.Close,
+                  "Off"
+               )
+            }
+
+            // If you want a thumb icon, you can add it here:
+            // thumbContent = { if (switchCheckedState) Icon(...) else Icon(...) }
+         )
+      }
+      Button(
+         onClick = { isSwitchEnabled = !isSwitchEnabled },
+         modifier = Modifier.padding(top = 8.dp)
+      ) {
+         Text(if (isSwitchEnabled) "Disable First Switch" else "Enable First Switch")
+      }
+      Spacer(modifier = Modifier.height(16.dp))
+
+      // Example 2: Permanently Disabled Switch
+      Text("Disabled Switch Example:", style = MaterialTheme.typography.labelMedium)
+      Row(
+         verticalAlignment = Alignment.CenterVertically,
+         modifier = Modifier
+            // Not toggleable if it's meant to be permanently disabled for this demo part
+            // If it were conditionally disabled but still part of a form, toggleable(enabled=false) is good.
+            .padding(vertical = 8.dp, horizontal = 4.dp)
+      ) {
+         Text(
+            text = "Always Disabled Switch",
+            modifier = Modifier.padding(end = 16.dp)
+         )
+         Switch(
+            checked = disabledSwitchChecked, // The visual state it's stuck in
+            onCheckedChange = { /* This won't be called if enabled is false */ },
+            enabled = false // THIS MAKES THE SWITCH DISABLED
+         )
+      }
+   }
+}
+```
+
+![Switch Demo](screenshots/switch_demo.png)
 
 -----

@@ -5,19 +5,27 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.ripple
@@ -212,7 +220,7 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
 @Composable
 fun RadioButtonDemo(context: android.content.Context) {
     val radioOptions = listOf("Option A", "Option B", "Option C")
-   // var (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+    // var (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     var selectedOption by remember { mutableStateOf(radioOptions[0]) }
     Text("Radio Buttons:", style = MaterialTheme.typography.titleMedium)
     Column {
@@ -246,6 +254,87 @@ fun RadioButtonDemo(context: android.content.Context) {
                     modifier = Modifier.padding(start = 8.dp)// Padding between radio and text
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun SwitchDemo(context: android.content.Context) {
+    var simpleSwitchChecked by remember { mutableStateOf(false) }
+    var disabledSwitchChecked by remember { mutableStateOf(true) } // Example initial state for disabled
+    var isSwitchEnabled by remember { mutableStateOf(true) } // To control enabled state of the first switch
+
+    Text("Switches:", style = MaterialTheme.typography.titleMedium)
+
+    // Example 1: Standard Switch (that can be programmatically disabled/enabled)
+    Column(modifier = Modifier.padding(bottom = 16.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                // .fillMaxWidth() // Optional: uncomment if you want the row to span full width
+                .toggleable(
+                    value = simpleSwitchChecked,
+                    onValueChange = {
+                        if (isSwitchEnabled) { // Only change if enabled
+                            simpleSwitchChecked = it
+                            Toast.makeText(context, "Switch: $it", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Switch is disabled", Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    role = Role.Switch, // Important for accessibility
+                    enabled = isSwitchEnabled // Pass the enabled state to toggleable
+                )
+                .padding(vertical = 8.dp, horizontal = 4.dp) // Padding for better tap target
+        ) {
+            // The Text should ideally come before the Switch for typical LTR layout ordering
+            // if the whole row is clickable and associated with the Switch's state.
+            Text(
+                text = "Interactive Switch",
+                modifier = Modifier.padding(end = 16.dp) // Padding between text and switch
+            )
+            Switch(
+                checked = simpleSwitchChecked,
+                onCheckedChange = null, // Handled by Row's toggleable
+                enabled = isSwitchEnabled, // Control enabled state here
+                // Example of thumb icon (optional)
+                thumbContent = {
+                    if (simpleSwitchChecked) Icon(Icons.Filled.Check, "On") else Icon(
+                        Icons.Filled.Close,
+                        "Off"
+                    )
+                }
+
+                // If you want a thumb icon, you can add it here:
+                // thumbContent = { if (switchCheckedState) Icon(...) else Icon(...) }
+            )
+        }
+        Button(
+            onClick = { isSwitchEnabled = !isSwitchEnabled },
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text(if (isSwitchEnabled) "Disable First Switch" else "Enable First Switch")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Example 2: Permanently Disabled Switch
+        Text("Disabled Switch Example:", style = MaterialTheme.typography.labelMedium)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                // Not toggleable if it's meant to be permanently disabled for this demo part
+                // If it were conditionally disabled but still part of a form, toggleable(enabled=false) is good.
+                .padding(vertical = 8.dp, horizontal = 4.dp)
+        ) {
+            Text(
+                text = "Always Disabled Switch",
+                modifier = Modifier.padding(end = 16.dp)
+            )
+            Switch(
+                checked = disabledSwitchChecked, // The visual state it's stuck in
+                onCheckedChange = { /* This won't be called if enabled is false */ },
+                enabled = false // THIS MAKES THE SWITCH DISABLED
+            )
         }
     }
 }

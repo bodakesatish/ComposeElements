@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.bodakesatish.composecomponents.selection.CheckboxDemo
 import com.bodakesatish.composecomponents.selection.DropdownMenuDemo
 import com.bodakesatish.composecomponents.selection.RadioButtonDemo
+import com.bodakesatish.composecomponents.selection.SwitchDemo
 import com.bodakesatish.composecomponents.ui.theme.ComposeComponentsTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +54,7 @@ fun MainContent() {
             verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between children.
         ) {
             val context = LocalContext.current
-            RadioButtonDemo(context)
+            SwitchDemo(context)
         }
     }
 }

@@ -101,3 +101,50 @@ fun HorizontalDividerDemo() {
 ![HorizontalDivider Demo](screenshots/horizontal_divider_demo.png)
 
 -----
+
+
+3. **OutlinedCard:**
+   * `OutlinedCard` (OutlinedCard)`
+
+```kotlin
+@Composable
+fun OutlinedCardDemo(context: Context) {
+   Text("OutlinedCard", style = MaterialTheme.typography.titleMedium)
+   Spacer(modifier = Modifier.height(8.dp))
+   // `OutlinedCard` is a card with a visible border instead of elevation/shadow.
+   OutlinedCard(
+      onClick = { Toast.makeText(context, "Outlined Card clicked!", Toast.LENGTH_SHORT).show() },
+      modifier = Modifier
+         .fillMaxWidth(),
+      // `border` can be customized using `BorderStroke`.
+//         border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+      // `colors` can be customized, e.g., for container color.
+      // colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+   ) {
+      Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+         Text("Another Item", style = MaterialTheme.typography.titleMedium)
+         Spacer(modifier = Modifier.height(8.dp))
+         Text("This card uses an outline instead of elevation. Good for less emphasis or when shadows are not desired.")
+         Spacer(modifier = Modifier.height(10.dp))
+         Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+         ) {
+            Icon(Icons.Filled.ThumbUp, contentDescription = "Like")
+            Text("125 Likes")
+            Spacer(Modifier.weight(1f)) // Pushes content to sides
+            IconButton(onClick = { Toast.makeText(context, "Share clicked", Toast.LENGTH_SHORT).show() }) {
+               Icon(Icons.Filled.Share, contentDescription = "Share")
+            }
+            IconButton(onClick = { Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT).show() }) {
+               Icon(Icons.Filled.Favorite, contentDescription = "Favorite")
+            }
+         }
+      }
+   }
+}
+```
+
+![OutlinedCardDemo Demo](screenshots/outlined_card_demo.png)
+
+-----

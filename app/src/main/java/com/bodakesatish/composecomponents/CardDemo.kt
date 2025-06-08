@@ -1,6 +1,8 @@
 package com.bodakesatish.composecomponents
 
+import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,11 +16,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -117,5 +126,42 @@ fun HorizontalDividerDemo() {
         // `HorizontalDivider(thickness = Dp.Hairline)` can be used for a very thin line.
         Spacer(modifier = Modifier.height(8.dp))
         Text("Content below divider")
+    }
+}
+
+@Composable
+fun OutlinedCardDemo(context: Context) {
+    Text("OutlinedCard", style = MaterialTheme.typography.titleMedium)
+    Spacer(modifier = Modifier.height(8.dp))
+    // `OutlinedCard` is a card with a visible border instead of elevation/shadow.
+    OutlinedCard(
+        onClick = { Toast.makeText(context, "Outlined Card clicked!", Toast.LENGTH_SHORT).show() },
+        modifier = Modifier
+            .fillMaxWidth(),
+        // `border` can be customized using `BorderStroke`.
+//         border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+        // `colors` can be customized, e.g., for container color.
+        // colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+            Text("Another Item", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("This card uses an outline instead of elevation. Good for less emphasis or when shadows are not desired.")
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(Icons.Filled.ThumbUp, contentDescription = "Like")
+                Text("125 Likes")
+                Spacer(Modifier.weight(1f)) // Pushes content to sides
+                IconButton(onClick = { Toast.makeText(context, "Share clicked", Toast.LENGTH_SHORT).show() }) {
+                    Icon(Icons.Filled.Share, contentDescription = "Share")
+                }
+                IconButton(onClick = { Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT).show() }) {
+                    Icon(Icons.Filled.Favorite, contentDescription = "Favorite")
+                }
+            }
+        }
     }
 }

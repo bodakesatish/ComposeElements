@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
@@ -162,6 +163,35 @@ fun OutlinedCardDemo(context: Context) {
                     Icon(Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun CardFilledStyleDemo(context: Context) {
+    Text("Card (Filled Style)", style = MaterialTheme.typography.titleMedium)
+    Spacer(modifier = Modifier.height(8.dp))
+    // The general `Card` composable can be used for a "filled" style card,
+    // which is subtly different from ElevatedCard (less prominent shadow by default)
+    // or OutlinedCard. It's closer to the M2 `Card`.
+    Card(
+        onClick = { Toast.makeText(context, "Filled Card clicked!", Toast.LENGTH_SHORT).show() },
+        modifier = Modifier
+            .fillMaxWidth(),
+        // `colors` can be used to set a specific container color.
+        // colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        // `elevation` can also be set here, but for stronger shadow, ElevatedCard is preferred.
+        // elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+            Text("Info Section", style = MaterialTheme.typography.headlineSmall)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("This is a standard filled card. It provides a contained surface for related information.")
+            Spacer(modifier = Modifier.height(8.dp))
+            // Divider inside a card
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("More details after the divider within the card.")
         }
     }
 }

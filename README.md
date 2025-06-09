@@ -115,3 +115,42 @@ fun CircularProgressIndicatorDemo() {
 ![CircularProgressIndicator Demo](screenshots/circular_progress_indicator_demo_two.png)
 
 -----
+
+3. **LinearProgressIndicator Demo:**
+   * `LinearProgressIndicator` (LinearProgressIndicator Demo)`
+
+```kotlin
+@Composable
+fun LinearProgressIndicatorDemo() {
+   val context = LocalContext.current
+   val coroutineScope = rememberCoroutineScope()
+   // `isLoadingLinear` controls the visibility of the LinearProgressIndicator (indeterminate).
+   var isLoadingLinear by remember { mutableStateOf(false) }
+
+   Text("LinearProgressIndicator (Indeterminate)", style = MaterialTheme.typography.titleMedium)
+   if (isLoadingLinear) {
+      // `LinearProgressIndicator` (without a `progress` parameter) displays an indeterminate linear animation.
+      LinearProgressIndicator(
+         modifier = Modifier.fillMaxWidth()
+         // color = MaterialTheme.colorScheme.tertiary, // Optional: Custom color
+         // trackColor = MaterialTheme.colorScheme.surfaceVariant, // Optional: Custom track color
+      )
+   } else {
+      Button(onClick = {
+         isLoadingLinear = true
+         coroutineScope.launch {
+            delay(3000) // Simulate a task.
+            isLoadingLinear = false
+            Toast.makeText(context, "Linear loading finished!", Toast.LENGTH_SHORT).show()
+         }
+      }) {
+         Text("Load with Linear (Indeterminate)")
+      }
+   }
+}
+```
+
+![LinearProgressIndicator Demo](screenshots/linear_progress_indicator_demo_one.png)
+![LinearProgressIndicator Demo](screenshots/linear_progress_indicator_demo_two.png)
+
+-----

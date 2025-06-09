@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bodakesatish.composecomponents.text.TextDefault
+import androidx.navigation.compose.rememberNavController
 import com.bodakesatish.composecomponents.ui.theme.ComposeComponentsTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +26,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeComponentsTheme {
-                MainContent()
+                val navController = rememberNavController()
+                NavigationDrawerExampleScreen(navController)
             }
         }
     }
@@ -51,7 +52,8 @@ fun MainContent() {
             verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between children.
         ) {
             val content = LocalContext.current
-            TextDefault()
+            val navController = rememberNavController()
+            NavigationDrawerExampleScreen(navController)
         }
     }
 }

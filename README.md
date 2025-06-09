@@ -46,3 +46,48 @@ fun DemoElement(text: String, color: Color, modifier: Modifier = Modifier) {
 ![Simple Box Demo](screenshots/box_simple_demo.png)
 
 -----
+
+2. **Advanced Box Demo:**
+   * `Box` (Advanced Box)`
+
+```kotlin
+@Composable
+fun AdvancedBoxDemo() {
+   // Advanced Box
+   Text("Advanced Box:", style = MaterialTheme.typography.titleMedium)
+   Box(
+      modifier = Modifier
+         .fillMaxWidth()
+         .height(200.dp)
+         .background(Color.Gray.copy(alpha = 0.2f))
+         .padding(8.dp)
+         .border(1.dp, Color.Black),
+      contentAlignment = Alignment.BottomEnd // Default alignment for all children
+   ) {
+      DemoElement(
+         "Box A (Default)",
+         Color.Red.copy(alpha = 0.8f),
+      ) // Aligned to BottomEnd (Box's default)
+      DemoElement(
+         "Box B",
+         Color.Green.copy(alpha = 0.8f),
+         Modifier.align(Alignment.Center)
+      ) // Override
+      DemoElement(
+         "Box C",
+         Color.Blue.copy(alpha = 0.8f),
+         Modifier.align(Alignment.TopEnd)
+      ) // Override
+      DemoElement(
+         "Box D (Match Parent)",
+         Color.Yellow.copy(alpha = 0.5f),
+         Modifier.matchParentSize()
+      ) // Tries to be as big as the Box
+   }
+   Text("fillMaxWidth, height, contentAlignment (default for children), child's align, matchParentSize.", fontSize = 12.sp, modifier = Modifier.padding(bottom = 12.dp))
+}
+```
+
+![Advanced Box Demo](screenshots/box_advanced_demo.png)
+
+-----

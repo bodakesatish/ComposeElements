@@ -2,13 +2,16 @@ package com.bodakesatish.composecomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +29,40 @@ fun MinimalRowLayoutsDemo() {
         DemoElement("Row 3", Color.Blue.copy(alpha = 0.5f))
     }
     Text("Default: Arranges horizontally, children take their own height, aligned to Top.", fontSize = 12.sp, modifier = Modifier.padding(bottom = 12.dp))
+
+    Spacer(modifier = Modifier.height(16.dp))
+}
+
+@Composable
+fun AdvancedRowLayoutsDemo() {
+    // Advanced Row
+    Text("Advanced Row:", style = MaterialTheme.typography.titleMedium)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .background(Color.LightGray.copy(alpha = 0.3f))
+            .padding(8.dp)
+            .border(1.dp, Color.Gray),
+        horizontalArrangement = Arrangement.SpaceBetween, // Distribute space
+        verticalAlignment = Alignment.CenterVertically    // Align children vertically to the center
+    ) {
+        DemoElement(
+            "Adv Row A",
+            Color.Green.copy(alpha = 0.6f),
+            Modifier.weight(1f)
+        ) // Takes 1 part of available space
+        DemoElement(
+            "Adv Row B",
+            Color.Blue.copy(alpha = 0.6f),
+            Modifier.weight(2f)
+        ) // Takes 2 parts of available space
+        DemoElement(
+            "Adv Row C",
+            Color.Red.copy(alpha = 0.6f),
+        ) // Default weight (wraps content)
+    }
+    Text("fillMaxWidth, height, horizontalArrangement, verticalAlignment, child's weight.", fontSize = 12.sp, modifier = Modifier.padding(bottom = 12.dp))
 
     Spacer(modifier = Modifier.height(16.dp))
 }

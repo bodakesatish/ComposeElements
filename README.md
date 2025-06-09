@@ -71,3 +71,47 @@ fun DialogDemo() {
 ![AlertDialog Demo](screenshots/alert_dialog_demo.png)
 
 -----
+
+2. **CircularProgressIndicator Demo:**
+   * `CircularProgressIndicator` (CircularProgressIndicator Demo)`
+
+```kotlin
+@Composable
+fun CircularProgressIndicatorDemo() {
+
+   val context = LocalContext.current
+   val coroutineScope = rememberCoroutineScope()
+
+   // --- State for Progress Indicators ---
+   // `isLoadingCircular` controls the visibility of the CircularProgressIndicator.
+   var isLoadingCircular by remember { mutableStateOf(false) }
+
+   // --- CircularProgressIndicator Section ---
+   Text("CircularProgressIndicator Demo", style = MaterialTheme.typography.titleMedium)
+   if (isLoadingCircular) {
+      // `CircularProgressIndicator` displays an indeterminate circular loading animation.
+      // It's used when the progress duration is unknown.
+      CircularProgressIndicator(
+         modifier = Modifier.size(48.dp),
+         // color = MaterialTheme.colorScheme.secondary, // Optional: Custom color
+         // strokeWidth = 5.dp // Optional: Custom stroke width
+      )
+   } else {
+      Button(onClick = {
+         isLoadingCircular = true
+         coroutineScope.launch {
+            delay(13000) // Simulate a network request or long task.
+            isLoadingCircular = false
+            Toast.makeText(context, "Circular loading finished!", Toast.LENGTH_SHORT).show()
+         }
+      }) {
+         Text("Load with Circular")
+      }
+   }
+}
+```
+
+![CircularProgressIndicator Demo](screenshots/circular_progress_indicator_demo_one.png)
+![CircularProgressIndicator Demo](screenshots/circular_progress_indicator_demo_two.png)
+
+-----

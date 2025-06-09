@@ -148,7 +148,6 @@ fun OutlinedCardDemo(context: Context) {
 
 -----
 
-
 4. **CardFilledStyle:**
    * `CardFilledStyle` (CardFilledStyle)`
 
@@ -184,5 +183,45 @@ fun CardFilledStyleDemo(context: Context) {
 ```
 
 ![CardFilledStyle Demo](screenshots/card_filled_style_demo.png)
+
+-----
+
+4. **VerticalDivider Demo:**
+   * `VerticalDivider` (VerticalDivider Demo)`
+
+```kotlin
+@Composable
+fun VerticalDividerDemo() {
+   Text("VerticalDivider", style = MaterialTheme.typography.titleMedium)
+   Spacer(modifier = Modifier.height(8.dp))
+   // `VerticalDivider` is used to separate content vertically.
+   // It requires a specific height to be visible, often constrained by its parent.
+   Row(
+      modifier = Modifier
+         .fillMaxWidth()
+         .height(IntrinsicSize.Min), // Important: Constrains children vertically
+      verticalAlignment = Alignment.CenterVertically
+   ) {
+      Text("Option A", modifier = Modifier.weight(1f).padding(8.dp))
+      VerticalDivider(
+         modifier = Modifier
+            .fillMaxHeight() // Takes the height of the Row
+            .width(1.dp),    // Specify width
+         // thickness = 1.dp, // Redundant if width is set, but can be used
+         color = MaterialTheme.colorScheme.outline // Default color
+      )
+      Text("Option B", modifier = Modifier.weight(1f).padding(8.dp))
+      VerticalDivider(
+         modifier = Modifier
+            .fillMaxHeight()
+            .width(1.dp),
+         color = MaterialTheme.colorScheme.outline
+      )
+      Text("Option C", modifier = Modifier.weight(1f).padding(8.dp))
+   }
+}
+```
+
+![VerticalDivider Demo](screenshots/vertical_divider_demo.png)
 
 -----

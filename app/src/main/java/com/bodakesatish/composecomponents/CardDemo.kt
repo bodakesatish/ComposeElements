@@ -8,8 +8,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +33,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ElevatedCardDemo(context: android.content.Context) {
+fun ElevatedCardDemo(context: Context) {
     ElevatedCard(
         // `onClick` can be added to make the entire card clickable.
         onClick = { Toast.makeText(context, "Elevated Card clicked!", Toast.LENGTH_SHORT).show() },
@@ -193,5 +196,36 @@ fun CardFilledStyleDemo(context: Context) {
             Spacer(modifier = Modifier.height(8.dp))
             Text("More details after the divider within the card.")
         }
+    }
+}
+
+@Composable
+fun VerticalDividerDemo() {
+    Text("VerticalDivider", style = MaterialTheme.typography.titleMedium)
+    Spacer(modifier = Modifier.height(8.dp))
+    // `VerticalDivider` is used to separate content vertically.
+    // It requires a specific height to be visible, often constrained by its parent.
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min), // Important: Constrains children vertically
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("Option A", modifier = Modifier.weight(1f).padding(8.dp))
+        VerticalDivider(
+            modifier = Modifier
+                .fillMaxHeight() // Takes the height of the Row
+                .width(1.dp),    // Specify width
+            // thickness = 1.dp, // Redundant if width is set, but can be used
+            color = MaterialTheme.colorScheme.outline // Default color
+        )
+        Text("Option B", modifier = Modifier.weight(1f).padding(8.dp))
+        VerticalDivider(
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(1.dp),
+            color = MaterialTheme.colorScheme.outline
+        )
+        Text("Option C", modifier = Modifier.weight(1f).padding(8.dp))
     }
 }

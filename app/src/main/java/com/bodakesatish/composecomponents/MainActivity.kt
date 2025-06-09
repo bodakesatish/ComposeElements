@@ -50,7 +50,7 @@ fun MainContent() {
             verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between children.
         ) {
             val context = LocalContext.current
-            CardFilledStyleDemo(context)
+            VerticalDividerDemo()
         }
     }
 }
